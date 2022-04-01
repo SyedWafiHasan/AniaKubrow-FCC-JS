@@ -52,3 +52,48 @@ const cardArray =
 
 cardArray.sort(() => 0.5 - Math.random())  // to sort an array randomly
 
+const gridDisplay = document.querySelector('#grid')
+
+function createBoard()
+{
+	for (let i = 0; i < cardArray.length; i++)
+	{
+		const card = document.createElement('img')
+		card.setAttribute('src', 'images/blank.png')
+		card.setAttribute('data-id', i)
+		card.addEventListener('click', flipCard)
+		gridDisplay.appendChild(card)
+	}
+}
+
+function flipCard()
+{
+	let cardId = this.getAttribute('data-id')
+	console.log("clicked", cardId)
+}
+
+createBoard()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
