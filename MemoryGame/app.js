@@ -53,7 +53,9 @@ const cardArray =
 cardArray.sort(() => 0.5 - Math.random())  // to sort an array randomly
 
 const gridDisplay = document.querySelector('#grid')
-const cardsChosen = []
+let cardsChosen = []
+let cardsChosenIds = []
+const cardsWon = []
 
 function createBoard()
 {
@@ -69,29 +71,33 @@ function createBoard()
 
 function flipCard()
 {
-
 	let cardId = this.getAttribute('data-id')
 	cardsChosen.push(cardArray[cardId].name)
-	this.setAttribute('src', cardArray[cardId].img)
-
-	if (cardsChosen.length === 2)
-	{
-		setTimeout(checkMatch, 500)
+	cardsChosenIds.push(cardId)
+	console.log(cardsChosen)
+	console.log(cardsChosenIds)
+	thttps://www.youtube.com/watch?v=lQlIhraqL7o	setTimeout(checkMatch, 500)
 	}
 }
 
 function checkMatch()
 {
-	console.log(cardsChosen);
+	const cards = document.querySelectorAll('img')
+	// console.log(cardsChosen);
+	console.log(cards)
 	console.log("check for match")
 	if (cardsChosen[0] === cardsChosen[1])
 	{
-		alert("Match")
+		// alert("Match")
+		cards[cardsChosenIds[0]].setAttribute('src', 'images/white.png')
+		cards[cardsChosenIds[1]].setAttribute('src', 'images/white.png')
+		cards[cardsChosenIds[0]].removeEventListener('click', flipCard)
+		cards[cardsChosenIds[1]].removeEventListener('click', flipCard)
+		cardsWon.push(cardsChosen)
 	}
 	else
 	{
-		cardArray.pop();
-		cardArray.pop();
+		
 	}
 }
 
