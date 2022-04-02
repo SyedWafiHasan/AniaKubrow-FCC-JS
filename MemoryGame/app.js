@@ -76,8 +76,7 @@ function flipCard()
 	cardsChosenIds.push(cardId)
 	console.log(cardsChosen)
 	console.log(cardsChosenIds)
-	thttps://www.youtube.com/watch?v=lQlIhraqL7o	setTimeout(checkMatch, 500)
-	}
+	setTimeout(checkMatch, 500)
 }
 
 function checkMatch()
