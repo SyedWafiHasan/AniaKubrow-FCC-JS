@@ -53,9 +53,10 @@ const cardArray =
 cardArray.sort(() => 0.5 - Math.random())  // to sort an array randomly
 
 const gridDisplay = document.querySelector('#grid')
+const resultDisplay = document.querySelector('#result')
 let cardsChosen = []
 let cardsChosenIds = []
-const cardsWon = []
+let cardsWon = []
 
 function createBoard()
 {
@@ -74,9 +75,12 @@ function flipCard()
 	let cardId = this.getAttribute('data-id')
 	cardsChosen.push(cardArray[cardId].name)
 	cardsChosenIds.push(cardId)
-	console.log(cardsChosen)
-	console.log(cardsChosenIds)
-	setTimeout(checkMatch, 500)
+	this.setAttribute("src", cardArray[cardId].img);
+
+	if (cardsChosen.length === 2)
+	{
+		setTimeout(checkMatch, 500)
+	}
 }
 
 function checkMatch()
@@ -85,18 +89,41 @@ function checkMatch()
 	// console.log(cardsChosen);
 	console.log(cards)
 	console.log("check for match")
-	if (cardsChosen[0] === cardsChosen[1])
+
+	const optionOneId = cardsChosenIds[0]
+	const optionTwoId = cardsChosenIds[1]
+
+	if (optionOneId === optionTwoId) 
+	{
+    	cards[optionOneId].setAttribute("src", "images/blank.png")
+    	cards[optionTwoId].setAttribute("src", "images/blank.png")
+		console.log("Same card selected")
+  	}
+
+	if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId)
 	{
 		// alert("Match")
-		cards[cardsChosenIds[0]].setAttribute('src', 'images/white.png')
-		cards[cardsChosenIds[1]].setAttribute('src', 'images/white.png')
-		cards[cardsChosenIds[0]].removeEventListener('click', flipCard)
-		cards[cardsChosenIds[1]].removeEventListener('click', flipCard)
+		cards[optionOneId].setAttribute("src", "images/white.png")
+		cards[optionTwoId].setAttribute("src", "images/white.png")
+		cards[optionOneId].removeEventListener("click", flipCard)
+		cards[optionTwoId].removeEventListener("click", flipCard)
 		cardsWon.push(cardsChosen)
 	}
+
 	else
 	{
-		
+		cards[optionOneId].setAttribute("src", "images/blank.png")
+		cards[optionTwoId].setAttribute("src", "images/blank.png")
+		console.log("Sorry, try again")
+	}
+
+	cardsChosen = []
+	cardsChosenIds = []
+	resultDisplay.innerHTML = cardsWon.length
+
+	if (cardsWon.length === cardArray.length / 2)
+	{
+		resultDisplay.innerHTML = "Congratulations, you found them all!"
 	}
 }
 
